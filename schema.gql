@@ -1,0 +1,85 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Bookmark {
+  id: ID!
+  title: String
+  url: String
+  parentFolderName: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Folder {
+  id: ID!
+  folderName: String
+  parentFolderName: String
+  isShared: Boolean
+  createdAt: String!
+  updatedAt: String!
+}
+
+type User {
+  id: ID!
+  name: String
+  nickname: String
+  email: String!
+  googleId: String!
+  selfIntroduction: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type BookmarkInfo {
+  title: String
+  imageUrl: String
+}
+
+type BookmarkandFolder {
+  folders: [Folder!]
+  bookmarks: [Bookmark!]
+}
+
+type Query {
+  getUserInfo(user_id: Float!): User!
+  getAllUserId: [Float!]!
+  getBookmarkInfo(bookmark_id: Float!): BookmarkInfo!
+  getFolderInfo(folder_id: Float!): Folder!
+  getAllListByParentFolderName(parent_folder_name: String!, user_id: Float!): BookmarkandFolder!
+  getAllListByUserId(user_id: Float!): BookmarkandFolder!
+  getSharedListByParentFolderName(parent_folder_name: String!, user_id: Float!): BookmarkandFolder!
+  getMyPage(user_id: Float!): BookmarkandFolder!
+  getSharedPage(user_id: Float!): BookmarkandFolder!
+  getUserId: Int!
+}
+
+type Mutation {
+  writeSelfIntro(user_id: Float!, self_intro: String!): String!
+  updateUserNickname(user_id: Float!, nickname: String!): String!
+  deleteUser(user_id: Float!): String!
+  createBookmark(create_bookmark_input: createBookmarkInput!, user_id: Float!): String!
+  updateBookmark(bookmark_id: Float!, title: String!, url: String!, parent_folder_name: String!): String!
+  deleteBookmark(bookmark_id: Float!): String!
+  createFolder(create_folder_input: createFolderInput!, user_id: Float!): String!
+  updateFolder(folder_id: Float!, title: String!, is_shared: Boolean!): String!
+  changeFolderStatus(folder_id: Float!): String!
+  deleteFolder(folder_id: Float!): String!
+  deleteAllList(user_id: Float!): String!
+  uploadHtmlFile(htmlFile: Upload!, user_id: Float!): String!
+}
+
+input createBookmarkInput {
+  title: String
+  url: String
+  parentFolderName: String
+}
+
+input createFolderInput {
+  folderName: String
+  parentFolderName: String
+  isShared: Boolean
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
